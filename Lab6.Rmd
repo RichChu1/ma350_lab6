@@ -1,0 +1,14 @@
+---
+title: "Lab 6"
+author: "Rich Chu"
+output: html_notebook
+---
+
+# Lab 6: Nothing Is Normal About This!
+
+## Part I: The Rightful pgauss()
+
+## Part II: What's a Normal Score?
+
+## Part III: What's the Most Likely Mean?
+
