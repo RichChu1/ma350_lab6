@@ -1755,9 +1755,50 @@ summary {
 <h1>Lab 6: Nothing Is Normal About This!</h1>
 <div id="part-i-the-rightful-pgauss" class="section level2">
 <h2>Part I: The Rightful pgauss()</h2>
+<div id="problem-1" class="section level3">
+<h3>Problem 1</h3>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuP2ludGVncmF0ZVxucGdhdXNzIDwtIGZ1bmN0aW9uKHgsIG1lYW49IDAsIHZhcj0gMSl7XG4gIGYgPC0gZnVuY3Rpb24oeCl7XG4gICAgcmV0dXJuKGRub3JtKHgsbWVhbixzcXJ0KHZhcikpKVxuICB9XG4gIHJldHVybihWZWN0b3JpemUoaW50ZWdyYXRlKGYsbG93ZXI9IC1JbmYsIHVwcGVyPSB4KSkpXG59XG5gYGAifQ== -->
+<pre class="r"><code>?integrate
+pgauss &lt;- function(x, mean= 0, var= 1){
+  f &lt;- function(x){
+    return(dnorm(x,mean,sqrt(var)))
+  }
+  return(Vectorize(integrate(f,lower= -Inf, upper= x)))
+}</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="problem-2" class="section level3">
+<h3>Problem 2</h3>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGdhdXNzKHgsMSwyKVxuYGBgIn0= -->
+<pre class="r"><code>pgauss(x,1,2)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gaW50ZWdyYXRlKGYsIGxvd2VyID0gLUluZiwgdXBwZXIgPSB4KSA6IFxuICBsZW5ndGgodXBwZXIpID09IDEgaXMgbm90IFRSVUVcbiJ9 -->
+<pre><code>Error in integrate(f, lower = -Inf, upper = x) : 
+  length(upper) == 1 is not TRUE</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
 </div>
 <div id="part-ii-whats-a-normal-score" class="section level2">
 <h2>Part II: What’s a Normal Score?</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxvdChwZ2F1c3MoeCw1LDEwMCkpXG5gYGAifQ== -->
+<pre class="r"><code>plot(pgauss(x,5,100))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gaW50ZWdyYXRlKGYsIGxvd2VyID0gLUluZiwgdXBwZXIgPSB4KSA6IFxuICBsZW5ndGgodXBwZXIpID09IDEgaXMgbm90IFRSVUVcbiJ9 -->
+<pre><code>Error in integrate(f, lower = -Inf, upper = x) : 
+  length(upper) == 1 is not TRUE</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 </div>
 <div id="part-iii-whats-the-most-likely-mean" class="section level2">
 <h2>Part III: What’s the Most Likely Mean?</h2>
@@ -1765,7 +1806,7 @@ summary {
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiTGFiIDYiCmF1dGhvcjogIlJpY2ggQ2h1IgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKLS0tCgojIExhYiA2OiBOb3RoaW5nIElzIE5vcm1hbCBBYm91dCBUaGlzIQoKIyMgUGFydCBJOiBUaGUgUmlnaHRmdWwgcGdhdXNzKCkKCiMjIFBhcnQgSUk6IFdoYXQncyBhIE5vcm1hbCBTY29yZT8KCiMjIFBhcnQgSUlJOiBXaGF0J3MgdGhlIE1vc3QgTGlrZWx5IE1lYW4/Cgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiTGFiIDYiCmF1dGhvcjogIlJpY2ggQ2h1IgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKLS0tCgojIExhYiA2OiBOb3RoaW5nIElzIE5vcm1hbCBBYm91dCBUaGlzIQoKIyMgUGFydCBJOiBUaGUgUmlnaHRmdWwgcGdhdXNzKCkKCiMjIyBQcm9ibGVtIDEKCmBgYHtyfQo/aW50ZWdyYXRlCnBnYXVzcyA8LSBmdW5jdGlvbih4LCBtZWFuPSAwLCB2YXI9IDEpewogIGYgPC0gZnVuY3Rpb24oeCl7CiAgICByZXR1cm4oZG5vcm0oeCxtZWFuLHNxcnQodmFyKSkpCiAgfQogIHJldHVybihWZWN0b3JpemUoaW50ZWdyYXRlKGYsbG93ZXI9IC1JbmYsIHVwcGVyPSB4KSkpCn0KYGBgCgojIyMgUHJvYmxlbSAyCgpgYGB7cn0KcGdhdXNzKHgsMSwyKQpgYGAKCiMjIFBhcnQgSUk6IFdoYXQncyBhIE5vcm1hbCBTY29yZT8KCmBgYHtyfQpwbG90KHBnYXVzcyh4LDUsMTAwKSkKYGBgCgoKIyMgUGFydCBJSUk6IFdoYXQncyB0aGUgTW9zdCBMaWtlbHkgTWVhbj8KCg==</div>
 
 
 
