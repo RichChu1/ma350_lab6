@@ -1,0 +1,76 @@
+---
+title: "R Notebook"
+author: "Rich Chu, Matt Lawson"
+output: html_notebook
+---
+
+# Lab 7: Five Scores and Several Months Ago
+
+## Part I: Import and Look
+
+### Problem 1
+
+```{r}
+quiz <- as.data.frame(read.csv("quiz.csv"))
+```
+
+### Problem 2
+
+```{r}
+plot(quiz)
+```
+The students' scores across all quizzes do not appear to be associated because each scores are truely random
+
+## Part II: Every Quiz Is Exactly the Same?
+
+### Problem 3
+```{r}
+plot(quiz$Q2,quiz$Q6,xlab= "Quiz 2", ylab= "Quiz 6")
+```
+
+
+
+### Problem 4
+
+```{r}
+cor(quiz$Q2,quiz$Q6)
+```
+Yes there is a positive association between the quiz percentages because the value is positive
+
+### Problem 5
+
+```{r}
+bootstrap.cor <- function(x,y,B= 2000){
+  data.x <- data.frame(x)
+  data.y <- data.frame(y)
+  boot.est <- vector(length= B)
+  for(i in 1:B){
+    boot.x <- data.x[sample(1:nrow(data.x),replace=TRUE),]
+    boot.y <- data.y[sample(1:nrow(data.y),replace=TRUE),]
+    boot.est[i] <- cor(boot.x,boot.y)
+  }
+  return(boot.est)
+}
+```
+
+### Problem 6
+
+```{r}
+boot <- bootstrap.cor(quiz$Q2,quiz$Q6,B= 5000)
+hist(boot)
+```
+The bootstrap data from the correlation between quiz 2 and quiz 6 appear to be normally distributed around 0
+
+### Problem 7
+
+```{r}
+quantile(boot,c(0.025,0.975))
+cor.test(quiz$Q2,quiz$Q6)$conf.int[1:2]
+```
+The bootstrap interval has a larger range of values than the normal interval. The lower bootstrap interval is also negative while the normal interal is positive
+
+## Part III: The "It" Factor
+
+
+
+
