@@ -12,6 +12,7 @@ output: html_notebook
 
 ```{r}
 quiz <- as.data.frame(read.csv("quiz.csv"))
+class(quiz)
 ```
 
 ### Problem 2
@@ -67,10 +68,70 @@ The bootstrap data from the correlation between quiz 2 and quiz 6 appear to be n
 quantile(boot,c(0.025,0.975))
 cor.test(quiz$Q2,quiz$Q6)$conf.int[1:2]
 ```
-The bootstrap interval has a larger range of values than the normal interval. The lower bootstrap interval is also negative while the normal interal is positive
+The bootstrap interval has a larger range of values than the normal interval. The lower bootstrap interval is also negative while the normal interal is positive. We can reject the null hypothesis and conclude that there is an association between the Quiz 2 and Quiz 6 scores. The significance level is 0.05.
 
 ## Part III: The "It" Factor
 
+### Problem 8
+
+```{r}
+cov.mat <- cov(quiz)
+
+cov(x = quiz$Q2, y = quiz$Q3)
+cov.mat[1,2]
+```
+
+These are the same.
+
+### Problem 9
+
+```{r}
+
+eigen.vals <- eigen(cov.mat)$value 
+eigen.vals
+```
+
+It's sorted greatest to least.
+
+### Problem 10
+
+```{r}
+sum(eigen.vals)
+sum(diag(cov.mat))
+```
+
+These are the same.
+
+### Problem 11
+
+```{r}
+eigen.vals[1]/sum(eigen.vals)
+```
+
+64.2% of the variance is captured by the first principal component analysis.
+
+### Problem 12
+
+```{r}
+bootstrap.eigenratio <- function(mat, B = 2000){
+?eigen
+  
+  boot.est <- vector(length= B)
+  for(i in 1:B){
+    
+    boot.est[i] <- mat[sample(1:nrow(mat),replace=TRUE),]
+  }
+  cov.mat <- cov(boot.est)
+  eigen.vals <- eigen(x=cov.mat)$value
+  eigen.ratio <- eigen.vals[1]/sum(eigen.vals)
+  return(eigen.ratio)
+}
+```
 
 
+### Problem 13
+
+```{r}
+bootstrap.eigenratio(quiz)
+```
 
