@@ -115,15 +115,16 @@ eigen.vals[1]/sum(eigen.vals)
 ```{r}
 bootstrap.eigenratio <- function(mat, B = 2000){
 ?eigen
-  
-  boot.est <- vector(length= B)
+  cov.mat <- cov(mat)
+  eigen.vals <- eigen(x=cov.mat)$value
+  data.eigen <- data.frame(eigen.vals)
+  eigen.ratio <- vector(length= B)
   for(i in 1:B){
     
-    boot.est[i] <- mat[sample(1:nrow(mat),replace=TRUE),]
+    boot.est <- data.eigen[sample(1:nrow(data.eigen),replace=TRUE),]
+    eigen.ratio[i] <- max(boot.est)/sum(boot.est)
   }
-  cov.mat <- cov(boot.est)
-  eigen.vals <- eigen(x=cov.mat)$value
-  eigen.ratio <- eigen.vals[1]/sum(eigen.vals)
+  
   return(eigen.ratio)
 }
 ```
@@ -132,6 +133,9 @@ bootstrap.eigenratio <- function(mat, B = 2000){
 ### Problem 13
 
 ```{r}
-bootstrap.eigenratio(quiz)
+bootstrap.eigenratio.test <- bootstrap.eigenratio(mat = quiz, B = 5000)
+bootstrap.eigenratio.test
+quantile(bootstrap.eigenratio.test, c(0.025, 0.975), na.rm = TRUE)
 ```
 
+We can confidently assign the proportions of the total variance in the scores between .24 and .76 to the largest principal component analysis.
